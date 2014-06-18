@@ -15,8 +15,11 @@ if (!$result){
 	die('Requête invalide : ' . mysql_error());
 }
 
-$fetch = mysql_fetch_assoc($result);
+while ($fetch = mysql_fetch_assoc($result)){
+	
+	var_dump($fetch);
+}
 
-var_dump($fetch);
+
 
 mysql_close($link);
