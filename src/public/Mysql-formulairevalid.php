@@ -26,6 +26,8 @@ if(!empty($errMessages)){
 	exit;
 } 
 
+/**
+ * Version MySql
 $link = mysql_connect("localhost", "formulaire", "0000")
 or die("Impossible de se connecter : " . mysql_error());
 
@@ -39,5 +41,29 @@ mysql_query($query);
 
 mysql_close($link);
 
-echo "Enregistrement";
 
+ */
+/**
+ * Version MySqli
+$mysqli = new mysqli("localhost", "formulaire", "0000", "formulaire");
+$query = "INSERT INTO identifiant VALUES (NULL, '" . $data['nom'] . "', '" . $data['prenom'] . "');";
+$mysqli->query($query);
+$mysqli->close();
+echo "Enregistrement";
+ */
+
+/** Version PDO */
+/** Création du DSN*/
+$dsn = "mysql:dbname=formulaire;host=localhost";
+/** Création de l'objet PDO*/
+$dbh = new PDO($dsn, "formulaire", "0000");
+/** Création de la requete SQL*/
+$sql = "INSERT INTO identifiant (nom, prenom) VALUES (:nom, :prenom)";
+/** Préparation de la requete avec l'objet PDO*/
+$sth = $dbh->prepare($sql);
+/** Execution de la préparation*/
+$sth->execute(array(
+	':nom' => $data['nom'],
+	':prenom' => $data['prenom']
+));
+echo "Bingo!";
