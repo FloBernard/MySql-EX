@@ -27,7 +27,20 @@
 				<input type="submit" class="btn btn-success" value="Enregistrer"/>
 			</form>
 		</div>
+<?php
+            $dsn = "mysql:dbname=formulaire;host=localhost";
+            $dbh = new PDO($dsn, "formulaire", "0000");
+            $sql = 'SELECT * FROM identifiant';
+            $sth = $dbh->prepare($sql);
+            $sth->execute();            
 
+            $rows = $sth->fetchAll();
+            if (!empty($rows)){
+            foreach($rows as $row)
+                echo $row['nom'],"\n";              
+            /** Voir moteur de recherche simpe !*/
+            }
+?>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
         <script src="js/plugins.js"></script>
